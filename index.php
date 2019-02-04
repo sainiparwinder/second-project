@@ -13,15 +13,32 @@ try {
        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
        $sql=$conn->query("select * from students ");
+       ?>
     
-       echo "<table style='border: solid 1px black;'>";
-       echo "<tr><th>Firstname</th><th>Lastname</th><th>Rollno</th><th>Email</th></tr>";
-       while($row=$sql->fetch(PDO::FETCH_ASSOC))
-       {
-		 echo "<tr><td>$row[firstname]</td><td>$row[lastname]</td><td>$row[rollno]</td><td>$row[email]</td><td><a href='delete.php?rollno=$row[rollno]'>Delete</a></td><td><a href='update.php?rollno=$row[rollno]'>update</a></td></tr>"; 
-       }
-       echo "</table >";
-   
+       <table style='border: solid 1px black;'>
+       <tr>
+		   <th>Firstname</th>
+		   <th>Lastname</th>
+		   <th>Rollno</th>
+		   <th>Email</th>
+		</tr>
+		<?php  while($row=$sql->fetch(PDO::FETCH_ASSOC)) { ?>
+			
+		 <tr>
+			 <td><?= $row[firstname]; ?></td>
+			 <td><?= $row[lastname] ?></td>
+			 <td><?= $row[rollno] ?></td>
+			 <td><?= $row[email] ?></td>
+			 <td>
+				 <a href='delete.php?rollno=<?= $row[rollno]; ?>'>Delete</a>
+			  </td>
+			   <td>
+				  <a href='update.php?rollno=<?= $row[rollno]; ?></a>'>update</a>
+				</td>
+			</tr>
+       <?php } ?>
+       </table >
+   <?php 
    }
    catch(PDOException $e)
     {
